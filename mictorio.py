@@ -2,36 +2,23 @@
 
 import unittest
 
-def esta_vazio(mijoes, i):
-    li = max(i-1, 0)
-    ls = min(i+2, len(mijoes))
-    
-    return True if mijoes[li:ls] == (ls-li)*'o' else False
-
-    #if i == 0 and mijoes[i:i+2] == 'oo':
-    #    return True
-    #elif i == len(mijoes)-1 and mijoes[i-1:i+1] == 'oo':
-    #    return True
-    #elif mijoes[i-1:i+2] == 'ooo':
-    #    return True
-    #return False
-
 def mictorio(mijoes):
-    mictorios_livres = []
     if mijoes is None:
        return []
-    
-    #if mijoes == 'o':
-    #    return [0]
-          
-    i=0
-    #for i in range(len(mijoes)):
-    while(i < len(mijoes)):
-        if esta_vazio(mijoes, i):
-            mictorios_livres.append(i)
-            i += 1
-        i += 1
-           
+
+    mictorios_livres = []
+    c = 1
+    for i, p in enumerate(mijoes):
+        if p == 'o':
+            c += 1
+            if c == 3:
+                mictorios_livres.append(i - 1)
+                c = 1
+        else:
+            c = 0
+    if c == 2:
+        mictorios_livres.append(len(mijoes) - 1)
+
     return mictorios_livres
 
 class MictorioTest(unittest.TestCase):
